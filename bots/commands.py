@@ -22,5 +22,5 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if chat_id == os.environ.get("CHAT_ID"):
         await context.bot.send_message(
             chat_id=os.environ.get("CHAT_ID"),
-            text="I'm a bot, please talk to me!"
+            text="Бот запущен.>"
         )
