@@ -1,2 +1,4 @@
 Scrapy==2.8.0
 python-telegram-bot==20.1
+SQLAlchemy==2.0.5.post1
+SQLAlchemy-Utils==0.40.0
