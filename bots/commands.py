@@ -18,9 +18,8 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     logger.info(
         "{0} {1} - {2} ({3}), chat ID={4} used command '/{5}'".format(*data))
-
-    if chat_id == os.environ.get("CHAT_ID"):
+    if chat_id == int(os.environ.get("CHAT_ID")):
         await context.bot.send_message(
             chat_id=os.environ.get("CHAT_ID"),
-            text="Бот запущен.>"
+            text="Бот запущен."
         )
