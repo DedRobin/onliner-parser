@@ -7,11 +7,13 @@ DB_USER = os.environ.get("DB_USER")
 DB_PASSWORD = os.environ.get("DB_PASSWORD")
 DB_NAME = os.environ.get("DB_NAME")
 DB_ECHO = bool(os.environ.get("DB_ECHO"))
+DB_HOST = os.environ.get("DB_HOST", "localhost")
 
 
 def create_db_engine():
+    print(DB_USER, DB_PASSWORD, DB_NAME, DB_ECHO, DB_HOST)
     engine = create_engine(
-        f"postgresql://{DB_USER}:{DB_PASSWORD}@localhost/{DB_NAME}", echo=DB_ECHO,
+        f"postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}/{DB_NAME}", echo=DB_ECHO,
     )
     return engine
 
