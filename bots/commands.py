@@ -4,6 +4,8 @@ import os
 from telegram import Update
 from telegram.ext import ContextTypes
 
+logger = logging.getLogger(__name__)
+
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     first_name = update.effective_chat.first_name
@@ -15,7 +17,6 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     data = first_name, last_name, username, link, chat_id, command
 
-    logger = logging.getLogger(__name__)
     logger.info(
         "{0} {1} - {2} ({3}), chat ID={4} used command '/{5}'".format(*data))
 
