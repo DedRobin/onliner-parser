@@ -1,4 +1,4 @@
-from sqlalchemy import Integer, Float, String, Column, ForeignKey
+from sqlalchemy import Integer, String, Column, ForeignKey
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 
@@ -10,15 +10,12 @@ class User(Base):
 
     id = Column(Integer, primary_key=True)
     username = Column(String)
-    first_name = Column(String)
-    last_name = Column(String)
-    link = Column(String)
 
 
-class ChatID(Base):
+class Products(Base):
     __tablename__ = "chat_ids"
     id = Column(Integer, primary_key=True)
-    chat_id = Column(Integer)
+    link = Column(String)
     user_id = Column(Integer, ForeignKey("users.id"))
 
     # Relations
