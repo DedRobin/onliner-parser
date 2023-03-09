@@ -1,12 +1,15 @@
 import os
-
+import logging
 from telegram.ext import ApplicationBuilder, CommandHandler
 
-from bots.create_db_session import create_session
+from db.tools import create_session
 from bots.commands import start
-from bots import settings
 
 if __name__ == "__main__":
+    logger = logging.getLogger(__name__)
+    logging.basicConfig(
+        format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO
+    )
     session = create_session()
 
     application = ApplicationBuilder().token(os.environ.get("BOT_TOKEN")).build()
