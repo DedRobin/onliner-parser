@@ -9,7 +9,7 @@ from db.models import Base
 DB_USER = os.environ.get("DB_USER")
 DB_PASSWORD = os.environ.get("DB_PASSWORD")
 DB_NAME = os.environ.get("DB_NAME")
-DB_ECHO = bool(os.environ.get("DB_ECHO"))
+DB_ECHO = os.environ.get("DB_ECHO") == "True"
 DB_HOST = os.environ.get("DB_HOST", "localhost")
 
 
