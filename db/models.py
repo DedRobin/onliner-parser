@@ -16,6 +16,7 @@ class Products(Base):
     __tablename__ = "chat_ids"
     id = Column(Integer, primary_key=True)
     link = Column(String)
+    tracking_frequency = Column(Integer)
     user_id = Column(Integer, ForeignKey("users.id"))
 
     # Relations
