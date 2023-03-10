@@ -1,10 +1,15 @@
 import inspect
 import logging
 import os
-from telegram import Update
+from telegram import Update, ReplyKeyboardMarkup
 from telegram.ext import ContextTypes
 
 logger = logging.getLogger(__name__)
+
+reply_keyboard = [
+    ["Добавить товар для отслеживания"],
+]
+markup = ReplyKeyboardMarkup(reply_keyboard, resize_keyboard=True)
 
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -22,6 +27,17 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     if chat_id == int(os.environ.get("CHAT_ID")):
         await context.bot.send_message(
-            chat_id=os.environ.get("CHAT_ID"),
+            chat_id=chat_id,
+            reply_markup=markup,
             text="Бот запущен."
         )
+
+
+async def track_product(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    chat_id = update.effective_chat.id
+    if chat_id == int(os.environ.get("CHAT_ID")):
+        await context.bot.send_message(
+            chat_id=chat_id,
+            text="Команда 'отслеживание продукта'"
+        )
+    pass
