@@ -5,6 +5,7 @@ from telegram import Update, ReplyKeyboardRemove
 from telegram.ext import ContextTypes, ConversationHandler
 
 from bots.buttons import markup_start
+from db.tools import write_link, create_session
 
 logger = logging.getLogger(__name__)
 
@@ -48,8 +49,11 @@ async def track_menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def tack_product(update: Update, context: ContextTypes.DEFAULT_TYPE):
     chat_id = update.effective_chat.id
+    username = update.effective_chat.username
     if chat_id == int(os.environ.get("CHAT_ID")):
         link = update.message.text
+        session = create_session()
+        await write_link(username=username, session=session, link=link)
         await context.bot.send_message(
             chat_id=chat_id,
             reply_markup=markup_start,

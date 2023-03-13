@@ -1,10 +1,8 @@
 import os
 from sqlalchemy import create_engine
 from sqlalchemy_utils import create_database, database_exists
-from sqlalchemy.engine import Engine
-from sqlalchemy.orm import sessionmaker
-from sqlalchemy.orm import Session
-from db.models import Base
+from sqlalchemy.orm import sessionmaker, Session
+from db.models import Base, Product, User
 
 DB_USER = os.environ.get("DB_USER")
 DB_PASSWORD = os.environ.get("DB_PASSWORD")
@@ -25,3 +23,9 @@ def create_session() -> Session:
     session = CurrentSession()
     return session
 
+
+async def write_link(username: str, session: Session, link: str) -> None:
+    current_user = session.query(User).filter_by(username=username).all()[0]
+    current_link = Product(link=link, tracking_frequency=30, user=current_user)
+    session.add(current_link)
+    session.commit()

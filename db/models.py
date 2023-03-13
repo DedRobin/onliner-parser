@@ -11,13 +11,16 @@ class User(Base):
     id = Column(Integer, primary_key=True)
     username = Column(String)
 
+    products = relationship("Product", back_populates="user")
 
-class Products(Base):
-    __tablename__ = "chat_ids"
+
+class Product(Base):
+    __tablename__ = "products"
+
     id = Column(Integer, primary_key=True)
     link = Column(String)
     tracking_frequency = Column(Integer)
     user_id = Column(Integer, ForeignKey("users.id"))
 
     # Relations
-    user = relationship("User", back_populates="user")
+    user = relationship("User", back_populates="products")

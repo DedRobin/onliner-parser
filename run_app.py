@@ -11,7 +11,6 @@ logging.basicConfig(
 )
 
 if __name__ == "__main__":
-    session = create_session()
 
     application = ApplicationBuilder().token(os.environ.get("BOT_TOKEN")).build()
 
