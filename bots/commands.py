@@ -1,12 +1,17 @@
 import inspect
 import logging
 import os
-from telegram import Update
-from telegram.ext import ContextTypes
+from telegram import Update, ReplyKeyboardRemove
+from telegram.ext import ContextTypes, ConversationHandler
 
-from bots.buttons import markup_start, markup_back
+from bots.buttons import markup_start
 
 logger = logging.getLogger(__name__)
+
+STATES = {
+    "TRACK": 0,
+    "BACK": 1
+}
 
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -30,12 +35,24 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         )
 
 
-async def track_product(update: Update, context: ContextTypes.DEFAULT_TYPE):
+async def track_menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
     chat_id = update.effective_chat.id
     if chat_id == int(os.environ.get("CHAT_ID")):
         await context.bot.send_message(
             chat_id=chat_id,
-            reply_markup=markup_back,
+            reply_markup=ReplyKeyboardRemove(),
             text="Вставьте URL-адрес товара для отслеживания"
         )
+    return STATES["TRACK"]
 
+
+async def tack_product(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    chat_id = update.effective_chat.id
+    if chat_id == int(os.environ.get("CHAT_ID")):
+        link = update.message.text
+        await context.bot.send_message(
+            chat_id=chat_id,
+            reply_markup=markup_start,
+            text=f'Товар "{link}" отслеживается'
+        )
+        return ConversationHandler.END
